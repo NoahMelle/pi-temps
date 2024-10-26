@@ -94,7 +94,7 @@ export default function TempCircle({ targetTemp }: {targetTemp: number}) {
                 </g>
             </svg>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full flex flex-col items-center">
-                <h3 className="text-3xl font-semibold">{Math.round(temp)}&deg;C</h3>
+                <h3 className="text-3xl font-semibold">{targetTemp}&deg;C</h3>
                 <h3>CPU</h3>
             </div>
         </div>
