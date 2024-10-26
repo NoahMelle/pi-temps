@@ -3,9 +3,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/tempcircle.module.scss";
 
-export default function TempCircle() {
+export default function TempCircle({ targetTemp }: {targetTemp: number}) {
     const [temp, setTemp] = useState(0);
-    const targetTemp = React.useRef(50);
     const animationSpeed = 0.015;
 
     function calculateCircumference(radius: number) {
@@ -22,13 +21,13 @@ export default function TempCircle() {
     const dashArray = availableCircumference * (temp / 100);
 
     useEffect(() => {
-        if (temp === targetTemp.current) return;
+        if (temp === targetTemp) return;
 
         const step = () => {
             setTemp((prev) => {
-                const difference = targetTemp.current - prev;
+                const difference = targetTemp - prev;
                 if (Math.abs(difference) < 0.1) {
-                    return targetTemp.current;
+                    return targetTemp;
                 }
                 return prev + difference * animationSpeed;
             });
