@@ -2,9 +2,8 @@ module.exports = {
     apps: [{
         name: "temps",
         script: "bun",
-        args: "run dev",
+        args: "run start",
         env: {
-            NODE_ENV: "production",
             PORT: 3001,
         },
     }]
