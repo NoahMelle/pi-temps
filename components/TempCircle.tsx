@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "@/styles/tempcircle.module.scss";
 
 export default function TempCircle({ targetTemp }: { targetTemp: number }) {
   const [temp, setTemp] = useState(0);
-  const animationSpeed = 0.015;
+  const animationSpeed = 0.002;
+  const lastUpdate = useRef(performance.now());
 
   function calculateCircumference(radius: number) {
     return Math.round(2 * Math.PI * radius);
@@ -24,12 +25,17 @@ export default function TempCircle({ targetTemp }: { targetTemp: number }) {
     if (temp === targetTemp) return;
 
     const step = () => {
+      const currentTime = performance.now();
+      const dt = currentTime - lastUpdate.current;
+
+      lastUpdate.current = currentTime;
+
       setTemp((prev) => {
         const difference = targetTemp - prev;
         if (Math.abs(difference) < 0.1) {
           return targetTemp;
         }
-        return prev + difference * animationSpeed;
+        return prev + difference * animationSpeed * dt;
       });
       requestAnimationFrame(step);
     };
